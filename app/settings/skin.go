@@ -13,7 +13,7 @@ func initSkin() *skin {
 	return &skin{
 		CurrentSkin:       "default",
 		FallbackSkin:      "default",
-		UseColorsFromSkin: false,
+		UseColorsFromSkin: true,
 		UseBeatmapColors:  false,
 		Cursor: &skinCursor{
 			UseSkinCursor:    false,

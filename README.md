@@ -4,28 +4,17 @@
 
 # danser-go
 
-[![GitHub release](https://img.shields.io/github/release/wieku/danser-go.svg)](https://github.com/Wieku/danser-go/releases/latest)
-[![CodeFactor](https://www.codefactor.io/repository/github/wieku/danser-go/badge)](https://www.codefactor.io/repository/github/wieku/danser-go)
-[![Discord server](https://img.shields.io/discord/713705871758065685.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/UTPvbe8)
+[![GitHub release](https://img.shields.io/github/release/wieku/danser-go.svg)](https://github.com/SEApodEErman/danser-go/releases)
 
-danser-go is a CLI visualisation tool for osu!standard maps.
+danser-go is a CLI visualisation tool for osu!standard maps. This fork reduces the number of settings required to record osu!standard replays that match the average player's in-game settings including the removal of the Relax mod pp nerfs.
 
 As danser is in development phase, some things may break. If that happens please fill an issue with as much detail as possible.
 
 **WARNING**: Because of MacOS' poor OpenGL support, danser-go won't run on that platform. Please use dual-booted Windows/Linux instead.
 
-## Examples
-* [Omoi - Chiisana Koi no Uta (Synth Rock Cover) [Kroytz's EX EX] - TAG2 Mirror Collage](https://youtu.be/Vo0Pbpu113Y)
-* [Sex Whales & Fraxo - Dead To Me (feat. Lox Chatterbox) [extrad1881 (ar 10)] Mirror Collage](https://youtu.be/KCHqrVGdXrk)
-* [Nightcore - Flower Dance [Amachoco ARX.7] Mandala Mirror Collage](https://youtu.be/HBC89S-UwFc)
-* [Flower Dance (osu! cursordance)](https://youtu.be/lcnnz3fN3bs)
-* [osu! top 50 replays knockout | xi - FREEDOM DiVE [ENDLESS DiMENSiONS]](https://youtu.be/kzr_Sr0Shuc)
-* [osu! top 50 knockout | YURRY CANNON - Suicide Parade [Sakase]](https://youtu.be/GS_yoq5MJMU)
-* [osu! top 50 replays knockout | Kobaryo - Bookmaker [Corrupt The World]](https://youtu.be/SJqkP1IDUq0)
-
 ## Running Danser
 
-You can download the newest Windows/Linux 64-bit binaries from [releases](https://github.com/Wieku/danser-go/releases).
+You can download the newest Windows/Linux 64-bit binaries from [releases](https://github.com/SEApodEErman/danser-go/releases).
 
 After unpacking it to your desired directory, you need to run it using launcher (using `danser-launcher` executable) or
 a command-line application/terminal:
@@ -40,7 +29,7 @@ danser <arguments>
 ./danser <arguments>
 ```
 
-If you try to run *danser* (not *danser-launcher*) without any arguments there's a surprise waiting for you ;)
+If you try to run *danser-cli* (not *danser*) without any arguments there's a surprise waiting for you ;)
 
 ## Run arguments
 * `-artist="NOMA"` or `-a="NOMA"`

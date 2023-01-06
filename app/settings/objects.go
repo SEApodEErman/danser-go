@@ -25,8 +25,8 @@ func initObjects() *objects {
 				CustomResolutionY:   1080,
 			},
 			Snaking: &snaking{
-				In:                 true,
-				Out:                true,
+				In:                 false,
+				Out:                false,
 				OutFadeInstant:     true,
 				DurationMultiplier: 0,
 				FadeMultiplier:     0,

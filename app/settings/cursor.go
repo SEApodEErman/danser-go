@@ -12,7 +12,7 @@ func initCursor() *cursor {
 		Style23Speed: 0.18,
 		Style4Shift:  0.5,
 		Colors: &color{
-			EnableRainbow:         true,
+			EnableRainbow:         false,
 			RainbowSpeed:          8,
 			BaseColor:             DefaultsFactory.InitHSV(),
 			EnableCustomHueOffset: false,
@@ -40,7 +40,7 @@ func initCursor() *cursor {
 		GlowEndScale:                0.4,
 		InnerLengthMult:             0.9,
 		AdditiveBlending:            true,
-		CursorRipples:               true,
+		CursorRipples:               false,
 		SmokeEnabled:                true,
 	}
 }

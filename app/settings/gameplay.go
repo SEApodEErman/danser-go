@@ -18,7 +18,7 @@ func initGameplay() *gameplay {
 			ShowPositionalMisses: true,
 			PositionalMissScale:  1.5,
 			ShowUnstableRate:     true,
-			UnstableRateDecimals: 0,
+			UnstableRateDecimals: 2,
 			UnstableRateScale:    1.0,
 			StaticUnstableRate:   false,
 			ScaleWithSpeed:       false,
@@ -86,8 +86,8 @@ func initGameplay() *gameplay {
 					Scale:   1.0,
 					Opacity: 1.0,
 				},
-				XPosition: 5,
-				YPosition: 150,
+				XPosition: 1350,
+				YPosition: 690,
 			},
 			Color: &HSV{
 				Hue:        0,
@@ -95,7 +95,7 @@ func initGameplay() *gameplay {
 				Value:      1,
 			},
 			Decimals:         0,
-			Align:            "CentreLeft",
+			Align:            "Right",
 			ShowInResults:    true,
 			ShowPPComponents: false,
 			Static:           false,
@@ -107,8 +107,8 @@ func initGameplay() *gameplay {
 					Scale:   1.0,
 					Opacity: 1.0,
 				},
-				XPosition: 5,
-				YPosition: 190,
+				XPosition: 1240,
+				YPosition: 720,
 			},
 			Color300: &HSV{
 				Hue:        0,
@@ -138,7 +138,7 @@ func initGameplay() *gameplay {
 			Spacing:          48,
 			FontScale:        1,
 			Align:            "Left",
-			ValueAlign:       "Left",
+			ValueAlign:       "Centre",
 			Vertical:         false,
 			Show300:          false,
 			ShowSliderBreaks: false,
@@ -158,7 +158,7 @@ func initGameplay() *gameplay {
 			},
 			FgColor: &HSV{
 				Hue:        297,
-				Saturation: 0.4,
+				Saturation: 0,
 				Value:      0.92,
 			},
 			Outline: &outline{
@@ -208,7 +208,7 @@ func initGameplay() *gameplay {
 			AdditionalSpacing: 0,
 		},
 		Boundaries: &boundaries{
-			Enabled:         true,
+			Enabled:         false,
 			BorderThickness: 1,
 			BorderFill:      1,
 			BorderColor: &HSV{

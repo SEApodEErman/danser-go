@@ -8,7 +8,7 @@ func initGraphics() *graphics {
 		Height:       1080,
 		WindowWidth:  1280,
 		WindowHeight: 720,
-		Fullscreen:   true,
+		Fullscreen:   false,
 		VSync:        false,
 		FPSCap:       0,
 		MSAA:         0,

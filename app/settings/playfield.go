@@ -7,7 +7,7 @@ func initPlayfield() *playfield {
 		DrawObjects:                  true,
 		DrawCursors:                  true,
 		Scale:                        1,
-		OsuShift:                     false,
+		OsuShift:                     true,
 		ShiftY:                       0,
 		ShiftX:                       0,
 		ScaleStoryboardWithPlayfield: false,
@@ -24,13 +24,13 @@ func initPlayfield() *playfield {
 			LoadVideos:      false,
 			FlashToTheBeat:  false,
 			Dim: &dim{
-				Intro:  0,
-				Normal: 0.95,
+				Intro:  0.5,
+				Normal: 0.85,
 				Breaks: 0.5,
 			},
 			Parallax: &parallax{
-				Enabled: true,
-				Amount:  0.1,
+				Enabled: false,
+				Amount:  0,
 				Speed:   0.5,
 			},
 			Blur: &blur{
@@ -52,7 +52,7 @@ func initPlayfield() *playfield {
 			},
 		},
 		Logo: &logo{
-			Enabled:      true,
+			Enabled:      false,
 			DrawSpectrum: false,
 			Dim: &dim{
 				Intro:  0,

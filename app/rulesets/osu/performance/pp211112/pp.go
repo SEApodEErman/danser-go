@@ -1,9 +1,10 @@
 package pp211112
 
 import (
+	"math"
+
 	"github.com/wieku/danser-go/app/beatmap/difficulty"
 	"github.com/wieku/danser-go/framework/math/mutils"
-	"math"
 )
 
 /* ------------------------------------------------------------- */
@@ -94,11 +95,6 @@ func (pp *PPv2) PPv2x(attribs Attributes, combo, n300, n100, n50, nmiss int, dif
 
 	if totalhits > 0 && diff.Mods.Active(difficulty.SpunOut) {
 		finalMultiplier *= 1.0 - math.Pow(float64(attribs.Spinners)/float64(totalhits), 0.85)
-	}
-
-	if diff.Mods.Active(difficulty.Relax) {
-		pp.effectiveMissCount = math.Min(pp.effectiveMissCount+float64(pp.countOk+pp.countMeh), float64(pp.totalHits))
-		finalMultiplier *= 0.6
 	}
 
 	pp.Results.Aim = pp.computeAimValue()
@@ -228,9 +224,6 @@ func (pp *PPv2) computeSpeedValue() float64 {
 }
 
 func (pp *PPv2) computeAccuracyValue() float64 {
-	if pp.diff.Mods.Active(difficulty.Relax) {
-		return 0.0
-	}
 
 	// This percentage only considers HitCircles of any value - in this part of the calculation we focus on hitting the timing hit window
 	betterAccuracyPercentage := 0.0

@@ -2,12 +2,13 @@ package pp211112
 
 import (
 	"fmt"
+	"log"
+	"math"
+
 	"github.com/wieku/danser-go/app/beatmap/difficulty"
 	"github.com/wieku/danser-go/app/beatmap/objects"
 	"github.com/wieku/danser-go/app/rulesets/osu/performance/pp211112/preprocessing"
 	skills2 "github.com/wieku/danser-go/app/rulesets/osu/performance/pp211112/skills"
-	"log"
-	"math"
 )
 
 const (
@@ -71,10 +72,6 @@ func getStarsFromRawValues(rawAim, rawAimNoSliders, rawSpeed, rawFlashlight floa
 	}
 
 	var total float64
-
-	if diff.CheckModActive(difficulty.Relax) {
-		speedRating = 0.0
-	}
 
 	baseAimPerformance := ppBase(aimRating)
 	baseSpeedPerformance := ppBase(speedRating)
