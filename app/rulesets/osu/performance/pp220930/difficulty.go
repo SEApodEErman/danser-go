@@ -73,12 +73,6 @@ func getStarsFromRawValues(rawAim, rawAimNoSliders, rawSpeed, rawFlashlight floa
 		flashlightRating = math.Pow(flashlightRating, 0.8)
 	}
 
-	if diff.CheckModActive(difficulty.Relax) {
-		aimRating *= 0.9
-		speedRating = 0
-		flashlightRating *= 0.7
-	}
-
 	var total float64
 
 	baseAimPerformance := ppBase(aimRating)
