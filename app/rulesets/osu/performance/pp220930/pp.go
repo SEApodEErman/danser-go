@@ -97,18 +97,6 @@ func (pp *PPv2) PPv2x(attribs Attributes, combo, n300, n100, n50, nmiss int, dif
 		multiplier *= 1.0 - math.Pow(float64(attribs.Spinners)/float64(pp.totalHits), 0.85)
 	}
 
-	if diff.Mods.Active(difficulty.Relax) {
-		okMultiplier := 1.0
-		mehMultiplier := 1.0
-
-		if diff.ODReal > 0.0 {
-			okMultiplier = math.Max(0.0, 1-math.Pow(diff.ODReal/13.33, 1.8))
-			mehMultiplier = math.Max(0.0, 1-math.Pow(diff.ODReal/13.33, 5))
-		}
-
-		pp.effectiveMissCount = math.Min(pp.effectiveMissCount+float64(pp.countOk)*okMultiplier+float64(pp.countMeh)*mehMultiplier, float64(pp.totalHits))
-	}
-
 	pp.Results.Aim = pp.computeAimValue()
 	pp.Results.Speed = pp.computeSpeedValue()
 	pp.Results.Acc = pp.computeAccuracyValue()
@@ -150,10 +138,6 @@ func (pp *PPv2) computeAimValue() float64 {
 		approachRateFactor = 0.05 * (8.0 - pp.diff.ARReal)
 	}
 
-	if pp.diff.CheckModActive(difficulty.Relax) {
-		approachRateFactor = 0.0
-	}
-
 	aimValue *= 1.0 + approachRateFactor*lengthBonus
 
 	// We want to give more reward for lower AR when it comes to aim and HD. This nerfs high AR and buffs lower AR.
@@ -178,9 +162,6 @@ func (pp *PPv2) computeAimValue() float64 {
 }
 
 func (pp *PPv2) computeSpeedValue() float64 {
-	if pp.diff.CheckModActive(difficulty.Relax) {
-		return 0
-	}
 
 	speedValue := ppBase(pp.attribs.Speed)
 
@@ -232,9 +213,6 @@ func (pp *PPv2) computeSpeedValue() float64 {
 }
 
 func (pp *PPv2) computeAccuracyValue() float64 {
-	if pp.diff.Mods.Active(difficulty.Relax) {
-		return 0.0
-	}
 
 	// This percentage only considers HitCircles of any value - in this part of the calculation we focus on hitting the timing hit window
 	betterAccuracyPercentage := 0.0
