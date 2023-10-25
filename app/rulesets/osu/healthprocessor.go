@@ -5,7 +5,6 @@ import (
 	"github.com/wieku/danser-go/app/beatmap/difficulty"
 	"github.com/wieku/danser-go/app/beatmap/objects"
 	"github.com/wieku/danser-go/framework/math/mutils"
-	"math"
 )
 
 const (
@@ -118,7 +117,7 @@ func (hp *HealthProcessor) CalculateRate() { //nolint:gocyclo
 
 			lastTime = int64(o.GetEndTime())
 
-			lowestHp = math.Min(lowestHp, hp.Health)
+			lowestHp = min(lowestHp, hp.Health)
 
 			if hp.Health <= lowestHpEver {
 				fail = true
@@ -127,7 +126,10 @@ func (hp *HealthProcessor) CalculateRate() { //nolint:gocyclo
 				break
 			}
 
-			hp.Increase(-hp.PassiveDrain*(o.GetEndTime()-o.GetStartTime()), false)
+			decr := hp.PassiveDrain * (o.GetEndTime() - o.GetStartTime())
+			hpUnder := min(0, hp.Health-decr)
+
+			hp.Increase(-decr, false)
 
 			if s, ok := o.(*objects.Slider); ok {
 				for j := 0; j < len(s.TickReverse)+1; j++ {
@@ -142,6 +144,14 @@ func (hp *HealthProcessor) CalculateRate() { //nolint:gocyclo
 				for j := 0; j < requirement; j++ {
 					hp.AddResult(SpinnerSpin)
 				}
+			}
+
+			//noinspection GoBoolExpressions - false positive
+			if hpUnder < 0 && hp.Health+hpUnder <= lowestHpEver {
+				fail = true
+				hp.PassiveDrain *= 0.96
+
+				break
 			}
 
 			if i == len(hp.beatMap.HitObjects)-1 || hp.beatMap.HitObjects[i+1].IsNewCombo() {
@@ -252,8 +262,8 @@ func (hp *HealthProcessor) AddResult(result HitResult) {
 }
 
 func (hp *HealthProcessor) Increase(amount float64, fromHitObject bool) {
-	hp.HealthUncapped = math.Max(0.0, hp.HealthUncapped+amount)
-	hp.Health = mutils.ClampF(hp.Health+amount, 0.0, MaxHp)
+	hp.HealthUncapped = max(0.0, hp.HealthUncapped+amount)
+	hp.Health = mutils.Clamp(hp.Health+amount, 0.0, MaxHp)
 
 	if hp.playing && hp.Health <= 0 && fromHitObject {
 		for _, f := range hp.failListeners {

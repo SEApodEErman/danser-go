@@ -11,7 +11,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"math"
 	"path/filepath"
 	"strings"
 	"unicode"
@@ -36,6 +35,15 @@ func LoadFont(reader io.Reader) *Font {
 
 	fnt.atlas = texture.NewTextureAtlas(1024, 5)
 	fnt.atlas.SetManualMipmapping(true)
+
+	buf := make([]byte, 25*4)
+	for i := range buf {
+		buf[i] = 0xff
+	}
+
+	fnt.pixel = fnt.atlas.AddTexture("pixel", 5, 5, buf)
+	fnt.pixel.Width = 1
+	fnt.pixel.Height = 1
 
 	fc, err := opentype.NewFace(ttf, &opentype.FaceOptions{Size: fnt.initialSize, DPI: 72, Hinting: font.HintingFull})
 	if err != nil {
@@ -95,7 +103,7 @@ func LoadFont(reader io.Reader) *Font {
 
 			//Calculate real ascent from the tallest A-Z glyph, because glyphs like Ž may make it bigger
 			if i >= 'A' && i <= 'Z' {
-				fnt.ascent = math.Max(fnt.ascent, float64(-b.Min.Y) / 64)
+				fnt.ascent = max(fnt.ascent, float64(-b.Min.Y)/64)
 			}
 
 			fnt.glyphs[i] = &glyphData{region, advance, offsetX, ascent}
@@ -128,7 +136,7 @@ func LoadFont(reader io.Reader) *Font {
 	return fnt
 }
 
-func LoadTextureFont(path, name string, min, max rune, atlas *texture.TextureAtlas) *Font {
+func LoadTextureFont(path, name string, minR, maxR rune, atlas *texture.TextureAtlas) *Font {
 	font := new(Font)
 
 	font.glyphs = make(map[rune]*glyphData)
@@ -138,10 +146,10 @@ func LoadTextureFont(path, name string, min, max rune, atlas *texture.TextureAtl
 	extension := filepath.Ext(path)
 	baseFile := strings.TrimSuffix(path, extension)
 
-	for i := min; i <= max; i++ {
+	for i := minR; i <= maxR; i++ {
 		region, _ := utils.LoadTextureToAtlas(font.atlas, baseFile+string(i)+extension)
 
-		font.initialSize = math.Max(font.initialSize, float64(region.Height))
+		font.initialSize = max(font.initialSize, float64(region.Height))
 
 		font.glyphs[i] = &glyphData{region, float64(region.Width), 0, float64(region.Height) / 2}
 	}
@@ -164,7 +172,7 @@ func LoadTextureFontMap(path, name string, chars map[string]rune, atlas *texture
 	for k, v := range chars {
 		region, _ := utils.LoadTextureToAtlas(font.atlas, baseFile+k+extension)
 
-		font.initialSize = math.Max(font.initialSize, float64(region.Height))
+		font.initialSize = max(font.initialSize, float64(region.Height))
 
 		font.glyphs[v] = &glyphData{region, float64(region.Width), 0, float64(region.Height) / 2}
 	}
@@ -186,7 +194,7 @@ func LoadTextureFontMap2(chars map[rune]*texture.TextureRegion, overlap float64)
 			continue
 		}
 
-		font.initialSize = math.Max(font.initialSize, float64(r.Height))
+		font.initialSize = max(font.initialSize, float64(r.Height))
 
 		font.glyphs[c] = &glyphData{r, float64(r.Width), 0, 0}
 	}
